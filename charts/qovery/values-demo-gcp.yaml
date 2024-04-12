@@ -29,18 +29,18 @@ services:
     q-storageclass-gcp:
       enabled: true
 qovery:
-  clusterId: &clusterId set-by-customer
-  clusterShortId: &clusterShortId set-by-customer
-  organizationId: &organizationId set-by-customer
-  jwtToken: &jwtToken set-by-customer
-  domain: &domain set-by-customer
-  domainWildcard: &domainWildcard set-by-customer
-  qoveryDnsUrl: &qoveryDnsUrl set-by-customer
-  lokiUrl: &lokiUrl set-by-customer
-  promtailLokiUrl: &promtailLokiUrl set-by-customer
-  acmeEmailAddr: &acmeEmailAddr set-by-customer
-  externalDnsPrefix: &externalDnsPrefix set-by-customer
-  architectures: &architectures set-by-customer
+  clusterId: &clusterId cadcfa18-3097-4b41-b97a-c8d761fd3348
+  clusterShortId: &shortClusterId zcadcfa18
+  organizationId: &organizationId 21bd04fb-7b93-45c5-9957-4325d833a05a
+  jwtToken: &jwtToken "eyJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRpb24iOiIyMWJkMDRmYi03YjkzLTQ1YzUtOTk1Ny00MzI1ZDgzM2EwNWEiLCJjbHVzdGVyIjoiY2FkY2ZhMTgtMzA5Ny00YjQxLWI5N2EtYzhkNzYxZmQzMzQ4Iiwicm9vdF9kbnMiOiJydXN0cm9ja3MuZnIiLCJpYXQiOjE3MTI5Mjk3Njh9.PByHhthVNdd9ZySk-JVRZuuv8hiHw87tjjVFQgWTiSDzGUIqi9FR121OBHIvjWbTRGShQXIuTXijH4tW0w0jwQ"
+  domain: &domain "zcadcfa18.rustrocks.fr"
+  domainWildcard: &domainWildcard "*.zcadcfa18.rustrocks.fr"
+  qoveryDnsUrl: &qoveryDnsUrl https://ddns.qovery.com
+  lokiUrl: &lokiUrl http://loki.qovery.svc:3100
+  promtailLokiUrl: &promtailLokiUrl http://loki.qovery.svc:3100/loki/api/v1/push
+  acmeEmailAddr: &acmeEmailAddr "acarrano@qovery.com"
+  externalDnsPrefix: &externalDnsPrefix "qvy-zcadcfa18-"
+  architectures: &architectures "AMD64"
 qovery-cluster-agent:
   fullNameOverride: qovery-shell-agent
   image:
@@ -190,6 +190,9 @@ loki:
       - name: storage
         mountPath: /var/loki
 cert-manager:
+  global:
+    leaderElection:
+      namespace: qovery
   fullnameOverride: cert-manager
   installCRDs: true
   replicaCount: 1
