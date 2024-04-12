@@ -114,8 +114,20 @@ external-dns:
     apiPort: 443
 promtail:
   fullnameOverride: promtail
-  namespace: kube-system
-  priorityClassName: system-node-critical
+  namespace: qovery
+  priorityClassName: qovery-high-priority
+  defaultVolumes:
+  - hostPath:
+     path: /var/log/pods
+    name: pods
+  - emptyDir: {}
+    name: run
+  defaultVolumeMounts:
+  - mountPath: /var/log/pods
+    name: pods
+    readOnly: true
+  - mountPath: /run/promtail
+    name: run
   config:
     clients:
       - url: *promtailLokiUrl
@@ -199,6 +211,9 @@ qovery-cert-manager-webhook:
     apiUrl: *qoveryDnsUrl
     apiKey: *jwtToken
 cert-manager-configs:
+  global:
+    leaderElection:
+      namespace: qovery
   fullnameOverride: cert-manager-configs
   externalDnsProvider: pdns # Qovery DNS
   namespace: "qovery"
