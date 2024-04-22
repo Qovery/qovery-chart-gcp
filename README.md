@@ -1,7 +1,7 @@
 # Self-Managed Qovery Helm Chart for GCP
 
 Requirements 
-- Having a GKE cluster using the default config and in particular: Public Cluster (we didn't test private but it should work if you have a NAT GW?), kube version <= 1.28
+- Having a GKE cluster using the default config and in particular: Public Cluster (we didn't test private but it should work if you have a NAT GW), kube version <= 1.28
 
 Steps to install:
 - Retrieve Kubeconfig with the command gcloud container clusters get-credentials CLUSTER_NAME --region=CLUSTER_REGION
